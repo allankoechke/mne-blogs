@@ -80,7 +80,8 @@ Building your own custom objects may require you to set up your own custom prope
     - ```def_generic(get_props, "getPropNames")``` – Defines a generic property called ```getPropNames``` used in Maxscript to return all property names that can be accessed from MAXScript and maps it to an internal function in our class called ```get_props```.
 
 With all declarations done, let's now implement the functionality before adding new property types to our class.
-    ```c++
+
+```c++
     Value* CustomValue::get_property(Value** arg_list, int count)
     {
         return Value::get_property(arg_list, count);
@@ -102,7 +103,8 @@ With all declarations done, let's now implement the functionality before adding 
         return this;
     }
 
-    void CustomValue::sprin1(CharStream* s)
+    void
+    CustomValue::sprin1(CharStream* s)
     {
         // String reprentation of the data ie Point3Vales
     }
@@ -123,5 +125,152 @@ With all declarations done, let's now implement the functionality before adding 
 
         return &false_value;
     }
+```
 
-    ```
+
+
+Let us add new properties. First, a property is defined as follows.
+- ```def_property(<property name>)``` – Added to the class
+- ```Value* CustomValue::get_<property name>(Value** arg_list, int count)``` – getter function for the property
+- ```Value* CustomValue::set_<property name>(Value** arg_list, int count)``` – setter function for the property
+
+
+Let us create a couple of properties that can be manipulated from Max side. We define it as follows.
+- ```Point3 m_pos``` – A Point3 object that we intend to expose to MAXScript
+- ```def_property(pos)``` – A property called pos that we will return the m_pos above
+- ```def_property(x)``` – The x-coordinate of the Point3 m_pos created
+- ```def_property(y)``` – The y-coordinate of the Point3 m_pos created
+- ```def_property(z)``` – The z-coordinate of the Point3 m_pos created
+
+
+Consequently, lets create the setter and getter functions for each of the properties above i.e.,
+
+
+```c++
+Value* CustomValue::get_pos(Value** arg_list, int count)
+{
+    return new Point3Value(m_pos);
+}
+
+Value* CustomValue::set_pos(Value** arg_list, int count)
+{
+    m_pos = arg_list[0]->to_point3();
+    return arg_list[0];
+}
+```
+
+For the ***x,y,z*** properties, it is like the implementation above. Check the full code link attached for the implementation. Implement the ```get_props_vf``` function by adding the four properties to the result array. 
+
+### Last touches:
+> - Added the 4 properties to the ```get_props_vf()``` function in the result array
+> - Add a default constructor for the CustomValue and instantiate the *m_pos* variable to a Point3 value
+> - Bonus, implement the ```show_props_vf()``` function in the ```CustomValue.cpp```
+
+<br />
+<br />
+<br />
+
+# Bonus Tip!
+### Building and Running the Snippet above
+
+---
+> This assumes you have already installed Visual Studio, 3ds MAX and 3ds MAX SDK. Check on how to setup the 3ds Max SDK and plugin wizard if you do not have that already. This is covered in the 3ds MAX documentation here [www.help.autodesk.com/view/MAXDEV/2023/ENU/?guid=installing_the_plug-in_wizard_ap](www.help.autodesk.com/view/MAXDEV/2023/ENU/?guid=installing_the_plug-in_wizard_ap)
+---
+
+<br />
+To enable us to build and run our created class, we will be using a StaticInteface in a Global Utility interface (GUT) plugin type in 3ds MAX SDK. Let us first create a global utility object (GUT) using the Plugin Wizard. The wizard will create a barebone project with all required functions for us to implement them.
+
+<br /> 
+
+![3ds Max Design Window](img/20230120_8.png)
+
+Next, we will add a static interface to expose a static object to the 3ds MAX side. This is the instance we will be using when getting and manipulating properties from the MAXScript. In Visual Studio, add a new class, let us call it ADNStaticInterface and add the following snippets.
+
+```c++
+class ADNStaticInterface : public FPStaticInterface 
+{
+
+public:
+
+	// The follow exposes our functions to Max
+	enum FN_IDS {
+		fn_run1
+	};
+	BEGIN_FUNCTION_MAP		        
+		FN_0(fn_run1, TYPE_VALUE, run1);
+	END_FUNCTION_MAP
+
+	// Implement the functions exposed above
+	Value* run1();
+
+	// General purpose exposure
+	static ADNStaticInterface* GetInstance() { return &_theInstance; }
+
+private:
+	DECLARE_DESCRIPTOR(ADNStaticInterface);
+
+	// The single instance of this class
+	static ADNStaticInterface _theInstance;
+
+	// Point3CustomValue *m_customValue;
+	CustomValue* m_customValue;
+};
+
+```
+
+We first begin by exposing our function to MAX; first an Enum of function ids ```(fn_run1)```
+- ```Value* run1()``` - This defines a function that will be called from Maxscript and returns a Value type. The return value object will allow manipulation of the properties.
+- ```static ADNStaticInterface* GetInstance()``` – Returns a static access object
+
+Let us implement the declared functions. Beginning with the 
+```c++
+ADNStaticInterface ADNStaticInterface::_theInstance
+(
+	IADN_STATIC_INTERFACE, _T("ADN"), 0, NULL, FP_CORE,
+	ADNStaticInterface::fn_run1, _T("run1"), 0, TYPE_VALUE, 0, 0,
+	
+    p_end
+);
+```
+
+The function declares an ADN (Autodesk Developer Network) object that can be used from the MAX side to call the functions in the C++ side.
+
+```c++
+Value* ADNStaticInterface::run1()
+{
+	Point3Value* nValue = new Point3Value(0.0, 0.0, 0.0);
+
+	return nValue;
+}
+```
+
+The run1 function returns an object to the MAXScript side. We have just set up a Point3Value to be returned to the MAXScript. The Point3Value is a Point3 type which inherits from the Value class to enable exposing the values to MAXScript. 
+
+Let us build and run the code to test if all works so far. Run the project within visual studio, with 3ds MAX launched, open the MAXScript listener window and run the command ```apt = adn.run1()```, you should be getting an output like below.
+
+![3ds Max Design Window](img/20230120_9.png)
+
+If that works so far, let us now proceed to building our own custom value type. Remember all values exposed to Maxscript must be of the Value type (inherits from the value type). 
+
+Running the custom value to the Static Interface
+Attach the new CustomValue to the ```ADNStaticInterface``` class and return it in the ```run1()``` method.
+- Include the custom value header to the ```ADNStaticInterface.h```
+- Add a private member object of the ```CustomValue``` type i.e., ```CustomValue* m_value```
+- In the ```run1()``` function, instantiate the CustomValue and return it from the function.
+
+Run the program and manipulate the properties as shown below.
+
+![3ds Max Design Window](img/20230120_10.png)
+
+Check out the full project code attached or from the git link below. <br />
+[Full Source Code Link](link to code)
+
+<br />
+<br />
+
+----
+
+> I hope that was quite descriptive way of creating your own custom value type for MAXScript. I would love to hear if you find better ways of doing it.
+> 
+> Any questions? Feel free to reach out. Cheers!
+
