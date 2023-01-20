@@ -1,4 +1,4 @@
-![3ds Max Design Window](img/20230120_1.jpg)
+![3ds Max Design Window](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/20230120_1.jpg)
 
 # Building a custom value type for MAXScript
 **3ds MAX** is a is a professional 3D computer graphics program that can be used to create 3D animations, models, games, and images. The power that it can do comes not only from the robust UI (User Interface) tools and ease of building plugins but also from the inbuilt scripting capability using Autodesk MAXScript. It is no doubt the power that MAXScript adds to 3ds Max. It is a great scripting method for automation, animation, object creation and manipulation. Lately, it has become the core of initiating 3ds Max Design Automation in the Autodesk Platform Services (formerly Forge). 
@@ -6,16 +6,18 @@
 ## Object Manipulation using MAXScript
 To manipulate objects in scene (create, modify, animate, etc.), the returned object on the Maxscript side must give you access to the underlying exposed properties. Let us create a simple box object and look at the exposed properties that the object has.
 
-- Open 3ds MAX software and launch the Maxscript listener window (sample shown in the image below). To launch the listener window, check the steps outlined here [https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2015/ENU/3DSMax/files/GUID-C8019A8A-207F-48A0-985E-18D47FAD8F36-htm.html](https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2015/ENU/3DSMax/files/GUID-C8019A8A-207F-48A0-985E-18D47FAD8F36-htm.html).
-![3ds Max Design Window](img/20230120_2.png)
+- Open 3ds MAX software and launch the Maxscript listener window (sample shown in the image below). To launch the listener window, check the steps outlined here [https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2015/ENU/3DSMax/files/GUID-C8019A8A-207F-48A0-985E-18D47FAD8F36-htm.html](https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2015/ENU/3DSMax/files/GUID-C8019A8A-207F-48A0-985E-18D47FAD8F36-htm.html).  
+    <br />
+
+  ![3ds Max Design Window](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/20230120_2.png)
 
 - Let us create and add a box object to the scene. Add the command  ```box1 = box()```. 
 
-    ![3ds Max Design Window](img/20230120_3.png)
+    ![3ds Max Design Window](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/20230120_3.png)
     
     The command above creates a primitive type of box object with the name Box001 at x,y,z (0,0,0) as shown below.
 
-    ![3ds Max Design Window](img/20230120_4.png)
+    ![3ds Max Design Window](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/20230120_4.png)
 
 - Let us begin by viewing all the exposed properties of the box object. We use the command ```getPropNames <object_name>``` i.e., ```getPropNames box1```. This returns a thorough list of properties **# (*#typeinCreationMethod, #typeInPos, #typeInLength, #typeInWidth, #typeInHeight, #length, #width, #height, #widthsegs, #lengthsegs, #heightsegs, #mapcoords, #realWorldMapSize*)**
 - We can therefore manipulate the created scene object by changing the values of the associated properties. 
@@ -24,10 +26,10 @@ To manipulate objects in scene (create, modify, animate, etc.), the returned obj
     box1.width = 100
     box1.height = 300
     ```
-    ![3ds Max Design Window](img/20230120_5.png)
+    ![3ds Max Design Window](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/20230120_5.png)
 
 - Resultant object on scene is as shown below (notice changes in size as compared to the initial box object)
-    ![3ds Max Design Window](img/20230120_6.png)
+    ![3ds Max Design Window](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/20230120_6.png)
 
 
 > As noted, each object type on the 3ds MAX does pose some properties that can be manipulated from the MAXScript side. A similar approach can be used to view properties for other objects like **Sphere**, **Cylinder**, **Cone**, etc.
@@ -37,7 +39,7 @@ Building your own custom objects may require you to set up your own custom prope
 
 ## Creating a Custom Value Type
 - In your project, add a new class to your project, let us call it ```CustomValue```, inheriting the ```Value``` type as shown below.
-    ![3ds Max Design Window](img/20230120_7.png)
+    ![3ds Max Design Window](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/20230120_7.png)
 
 - With that set, add the following snippets to your ```.h``` file
     ```c++
@@ -174,7 +176,7 @@ For the ***x,y,z*** properties, it is like the implementation above. Check the f
 ### Building and Running the Snippet above
 
 ---
-> This assumes you have already installed Visual Studio, 3ds MAX and 3ds MAX SDK. Check on how to setup the 3ds Max SDK and plugin wizard if you do not have that already. This is covered in the 3ds MAX documentation here [www.help.autodesk.com/view/MAXDEV/2023/ENU/?guid=installing_the_plug-in_wizard_ap](www.help.autodesk.com/view/MAXDEV/2023/ENU/?guid=installing_the_plug-in_wizard_ap)
+> This assumes you have already installed Visual Studio, 3ds MAX and 3ds MAX SDK. Check on how to setup the 3ds Max SDK and plugin wizard if you do not have that already. This is covered in the 3ds MAX documentation here [http://help.autodesk.com/view/MAXDEV/2023/ENU/?guid=installing_the_plug-in_wizard_ap](http://help.autodesk.com/view/MAXDEV/2023/ENU/?guid=installing_the_plug-in_wizard_ap)
 ---
 
 <br />
@@ -182,7 +184,7 @@ To enable us to build and run our created class, we will be using a StaticIntefa
 
 <br /> 
 
-![3ds Max Design Window](img/20230120_8.png)
+![3ds Max Design Window](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/20230120_8.png)
 
 Next, we will add a static interface to expose a static object to the 3ds MAX side. This is the instance we will be using when getting and manipulating properties from the MAXScript. In Visual Studio, add a new class, let us call it ADNStaticInterface and add the following snippets.
 
@@ -248,7 +250,7 @@ The run1 function returns an object to the MAXScript side. We have just set up a
 
 Let us build and run the code to test if all works so far. Run the project within visual studio, with 3ds MAX launched, open the MAXScript listener window and run the command ```apt = adn.run1()```, you should be getting an output like below.
 
-![3ds Max Design Window](img/20230120_9.png)
+![3ds Max Design Window](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/20230120_9.png)
 
 If that works so far, let us now proceed to building our own custom value type. Remember all values exposed to Maxscript must be of the Value type (inherits from the value type). 
 
@@ -260,10 +262,14 @@ Attach the new CustomValue to the ```ADNStaticInterface``` class and return it i
 
 Run the program and manipulate the properties as shown below.
 
-![3ds Max Design Window](img/20230120_10.png)
+![3ds Max Design Window](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/20230120_10.png)
 
 Check out the full project code attached or from the git link below. <br />
-[Full Source Code Link](link to code)
+> <br />
+>
+> [Source Code on Github](https://github.com/allankkoech/maxscript-custom-value-type-3dsmax/tree/master)  
+>
+> <br />
 
 <br />
 <br />
