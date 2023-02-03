@@ -1,10 +1,7 @@
-<br />
-<br />  
+![image001](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/blog2/image001.png)  
 
-![image002](img/blog2/image002.jpg)  
-
+*Image adapted from [http://aneeswork.blogspot.com/2015/10/3d-interior-design-3ds-max-vray.html](http://aneeswork.blogspot.com/2015/10/3d-interior-design-3ds-max-vray.html)*
 <br />
-<br />  
 
 # Learning 3ds Max SDK: My Journey
 One thing has always fascinated me for a very long time, that is, programming. I used to really wonder how big software did work and how they came to being. The absolute beauty of just writing English grammar with some semantics and later the computer gets to understand it, isn’t that just awesome?  
@@ -41,12 +38,11 @@ With all the pre-requisites satisfied, am sure you have a strong quest to get yo
 - ***Learn 3ds Max UI basics first*** – To understand how things work behind the scenes, we need to know how its handled on the scene. User interaction with the software is important and most critical and a s such, knowing how to work as a user gives you knowledge of how objects are modified stack by stack till you attain a desired 3d object. The areas to start with are:
   * **Basic geometric objects** – Getting to know how to create box, sphere, cylinder, etc. objects on scene. This also entails, how to modify the parameters of such objects like length, width, height, segments, etc. 
   * **Transforms** – This is basically 3d manipulations on an object on scene. It’s applied on the entire object and its independent of the shape of the scene object. It’s the object position, rotation, and scale. 
-  * **Modifiers** – This is how the basic shapes are changed. Adding modifiers on them allows manipulation of the underlying object. For instance, adding a bend modifier on a straight object gives an output as shown below. Check out how such a modifier is added and resulting effect on the object here https://help.autodesk.com/videos/0zd2FvbTrAtMzQjiHcH39SnEZstxFDYC/video.webm. Other types of modifiers are: Edit poly, OpenSubdiv, chamfer, shell, etc.  
-  *   
+  * **Modifiers** – This is how the basic shapes are changed. Adding modifiers on them allows manipulation of the underlying object. For instance, adding a bend modifier on a straight object gives an output as shown below. Check out how such a modifier is added and resulting effect on the object here https://help.autodesk.com/videos/0zd2FvbTrAtMzQjiHcH39SnEZstxFDYC/video.webm. Other types of modifiers are: Edit poly, OpenSubdiv, chamfer, shell, etc.     
   <br />
   <br />  
 
-  ![image002](img/blog2/image002.jpg)  
+  ![image002](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/blog2/image002.jpg)  
 
   <br />
   <br />  
@@ -56,11 +52,11 @@ With all the pre-requisites satisfied, am sure you have a strong quest to get yo
   <br />
   <br />  
 
-  ![image003](img/blog2/image003.jpg)  
+  ![image003](https://raw.githubusercontent.com/allankkoech/mne-blogs/master/img/blog2/image003.jpg)  
 
   <br />
   <br />  
-  
+
   * **Materials** – Creating realistic objects require a look a feel with what we do interact with in our day to day lives. Materials are data that is assigned to the surface/faces of objects to make it appear a certain way when rendered. They include but not limited to iron, steel, leather, wool, etc.  
 
 <br />
@@ -103,18 +99,20 @@ Fast learning does exist, but pitfalls are the hindering factor. Here are my sug
 - *C++ is important!* – Learning the SDK requires some level of understanding C++ concepts. Sharpen your knowledge/skills there first since there is less/no explanations of such concepts once you start working with the SDK.
 - *Be careful with burnout* – Yes, this is real. The SDK concepts are a lot, I don’t expect you to master all in a single day. Give yourself time, rest whenever you feel overwhelmed, and most important – reach out for any questions.
 - *Make SDK examples & samples your charm!* – The 3ds Max SDK ships with samples and example code which you can refer to see how things were implemented. Be careful to always change the plug-in class IDs to avoid conflicts with the default implemented plug-ins. 
-- *Check attached samples for tutorials* – Both the Learning path and webcast material have completed code samples. Check on them in case things are not working as expected. The Learning path has a Github repo https://github.com/ADN-DevTech/3dsMax-Learning-Path whereas the webcast videos http://download.autodesk.com/media/adn/3dsMax_July2012_Webcast_final_Recording.zip.
+- *Check attached samples for tutorials* – Both the Learning path and webcast material have completed code samples. Check on them in case things are not working as expected. The Learning path and the webcast Github/videos/materials can be found in the links below.
 
 ---
 
 Learning Path Github Repository - [https://github.com/ADN-DevTech/3dsMax-Learning-Path](https://github.com/ADN-DevTech/3dsMax-Learning-Path)  
 3ds Max Developer Center - [https://www.autodesk.com/developer-network/platform-technologies/3ds-max#3dsmax-sdk](https://www.autodesk.com/developer-network/platform-technologies/3ds-max#3dsmax-sdk)  
 
+<br />  
+
 > Developer center provides 3ds Max SDK Training Webcasts in both [English](http://download.autodesk.com/media/adn/3dsMax_July2012_Webcast_final_Recording.zip) and [Japanese](https://images.autodesk.com/adsk/files/3dsMax_SDK_webcast_Japanese.zip) and a separate [Download](http://download.autodesk.com/media/adn/3dsMax_July2012_Webcast_final_TrainingMaterial.zip) for the training materials. Videos are provided in a zip file.
 ---
+<br />
 
-
-I hope this will help you in your journey to learning 3ds Max SDK.    
+***I hope this will help you in your journey to learning 3ds Max SDK.***   
 
 <br />
 
