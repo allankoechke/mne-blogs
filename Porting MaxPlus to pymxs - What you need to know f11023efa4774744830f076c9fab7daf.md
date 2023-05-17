@@ -37,12 +37,12 @@ obj.ParameterBlock.Length.Value = 10.0
 obj.ParameterBlock.Height.Value = 10.0  
 ```
   
-    ```python
-    import pymxs
+```python
+import pymxs
 
-    obj = pymxs.runtime.box(width=10.0, length=10.0, height=10.0)
+obj = pymxs.runtime.box(width=10.0, length=10.0, height=10.0)
 
-    ```
+```
 
 ### Why the difference?
 
@@ -61,19 +61,19 @@ xrefs is a terminology for external referencing other files or scenes in the cur
 ***File counting***  
   
 ```
-    import MaxPlus
+import MaxPlus
 
-    num_xrefs = MaxPlus.XRefs.GetXRefFileCount()
-    print(num_xrefs)
+num_xrefs = MaxPlus.XRefs.GetXRefFileCount()
+print(num_xrefs)
 
 ```
 
 An equivalent pymxs code for a similar functionality is given below
   
 ```python  
-    import pymxs  
-    num_xrefs = pymxs.runtime.xrefs.getXRefFileCount()  
-    print(num_xrefs)  
+import pymxs  
+num_xrefs = pymxs.runtime.xrefs.getXRefFileCount()  
+print(num_xrefs)  
 ```
   
  ***Getting xref file***
@@ -81,19 +81,19 @@ An equivalent pymxs code for a similar functionality is given below
 Once xrefs are created within a scene, retrieving specific xref files for any purpose can be achieved as follows in both MaxPlus and pymxs
   
 ```python  
-    import MaxPlus
+import MaxPlus
 
-    index = 0 # index of the xref file
-    xref_file = MaxPlus.XRefs.GetXRefFile(index)
-    print(xref_file)
+index = 0 # index of the xref file
+xref_file = MaxPlus.XRefs.GetXRefFile(index)
+print(xref_file)
 
-    # IN PYMXS
+# IN pymxs
 
-    import pymxs
+import pymxs
 
-    index = 0 # index of the xref file
-    xref_file = pymxs.runtime.xrefs.getXRefFile(index)
-    print(xref_file)  
+index = 0 # index of the xref file
+xref_file = pymxs.runtime.xrefs.getXRefFile(index)
+print(xref_file)  
 ```
   
 Note that both requires a parameter specifying the index of the XRef file to get information about.
@@ -103,38 +103,38 @@ Note that both requires a parameter specifying the index of the XRef file to get
 This is intended for setting a file to xref
 
 ```python  
-    import MaxPlus
+import MaxPlus
 
-    # get the XRef object that you want to set the file path for
-    xref_object = MaxPlus.Core.GetINodeByName("MyXRefObject")
+# get the XRef object that you want to set the file path for
+xref_object = MaxPlus.Core.GetINodeByName("MyXRefObject")
 
-    # set the file path for the XRef object
-    file_path = "C:/path/to/my/xref/file.max"
-    MaxPlus.Core.SetXRefFile(xref_object, file_path)
+# set the file path for the XRef object
+file_path = "C:/path/to/my/xref/file.max"
+MaxPlus.Core.SetXRefFile(xref_object, file_path)
 
 ```  
   
 Note that this code represents a workaround for updating the XRef file, since there is no direct way to update the file in pymxs.
 
 ```python  
-    import pymxs
+import pymxs
 
-    index = 1
-    # Get the XRef object for index 1
-    xref_obj = pymxs.runtime.xrefs.getXRefFile(index)
+index = 1
+# Get the XRef object for index 1
+xref_obj = pymxs.runtime.xrefs.getXRefFile(index)
 
-    new_file = "path\to\file\something.max"
+new_file = "path\to\file\something.max"
 
-    # Using MAXScript in pymxs
-    maxscript_code = f'''
-    axref = xrefs.getXRefFile {index}
-    axref.filename = "{new_file}"
-    flagChanged axref
-    '''
+# Using MAXScript in pymxs
+maxscript_code = f'''
+axref = xrefs.getXRefFile {index}
+axref.filename = "{new_file}"
+flagChanged axref
+'''
 
-    _axref = pymxs.runtime.execute(maxscript_code)
+_axref = pymxs.runtime.execute(maxscript_code)
 
-    print(_axref)
+print(_axref)
 ```  
   
 ***Flagging xref file as changed***
@@ -142,31 +142,31 @@ Note that this code represents a workaround for updating the XRef file, since th
 Used to flag that the xref has been changed.
 
 ```python  
-    import MaxPlus
+import MaxPlus
 
-    # get the XRef object that you want to flag as changed
-    xref_object = MaxPlus.Core.GetINodeByName("MyXRefObject")
+# get the XRef object that you want to flag as changed
+xref_object = MaxPlus.Core.GetINodeByName("MyXRefObject")
 
-    # flag the XRef object as changed
-    MaxPlus.Core.FlagXrefChanged(xref_object)
+# flag the XRef object as changed
+MaxPlus.Core.FlagXrefChanged(xref_object)
 ```  
   
 To flag specific file as changed, pymxs doesn’t expose any way to directly do that. Alternatively, we can invoke MAXScript to flag the files as changed as shown;
 
 ```python  
-    import pymxs
+import pymxs
 
-    index = 1 # Index for the xref you want to flag as updated
+index = 1 # Index for the xref you want to flag as updated
 
-    maxscript_code = f'''
-    axref = xrefs.getXRefFile {index}
-    flagChanged axref
-    axref
-    '''
+maxscript_code = f'''
+axref = xrefs.getXRefFile {index}
+flagChanged axref
+axref
+'''
 
-    _axref = pymxs.runtime.execute(maxscript_code)
+_axref = pymxs.runtime.execute(maxscript_code)
 
-    print(_axref)
+print(_axref)
 ```  
   
 ***Updating changed xrefs***
@@ -174,17 +174,17 @@ To flag specific file as changed, pymxs doesn’t expose any way to directly do 
 Updates the XRefs that have been flagged as changed. This function actually loads the new versions of the referenced files and updates the XRefs in the scene accordingly.
 
 ```python  
-    # In MAXPLUS
-    import MaxPlus
+# In MAXPLUS
+import MaxPlus
 
-    # update all XRef objects that have been flagged as changed
-    MaxPlus.Core.UpdateChangedXRefs()
+# update all XRef objects that have been flagged as changed
+MaxPlus.Core.UpdateChangedXRefs()
 
-    # In PYMXS
-    import pymxs
+# In PYMXS
+import pymxs
 
-    # Updates the changed XRefs and resets their changed flags
-    pymxs.runtime.xrefs.updateChangedXRefs()
+# Updates the changed XRefs and resets their changed flags
+pymxs.runtime.xrefs.updateChangedXRefs()
 ```  
   
 ### 3. Animation
@@ -194,28 +194,28 @@ Updates the XRefs that have been flagged as changed. This function actually load
 Getting Animation Range is used to retrieve the animation range of the current scene.
   
 ```python  
-    import MaxPlus
+import MaxPlus
 
-    # get the animation range of the current scene
-    start_time, end_time = MaxPlus.Animation.GetAnimRange()
+# get the animation range of the current scene
+start_time, end_time = MaxPlus.Animation.GetAnimRange()
 
-    # print the start and end times of the animation range
-    print("Animation Range:")
-    print("Start Time:", start_time)
-    print("End Time:", end_time)
+# print the start and end times of the animation range
+print("Animation Range:")
+print("Start Time:", start_time)
+print("End Time:", end_time)
 ```  
   
 MaxPlus's corresponding function in pymxs returns  a pair of *time* objects: the first element of the tuple is the animation range's start time, and the second element is the animation range's end time.
 
 ```python  
-    import pymxs
+import pymxs
 
-    # Get the animation range in 3ds Max
-    anim_range = pymxs.runtime.animationRange
+# Get the animation range in 3ds Max
+anim_range = pymxs.runtime.animationRange
 
-    # Print the start and end times of the animation range
-    print("Start Time:", anim_range.start)
-    print("End Time:", anim_range.end)
+# Print the start and end times of the animation range
+print("Start Time:", anim_range.start)
+print("End Time:", anim_range.end)
 ```  
   
 ***Getting current time***
@@ -223,27 +223,27 @@ MaxPlus's corresponding function in pymxs returns  a pair of *time* objects: the
 Returns current time in the animation
 
 ```python  
-    import MaxPlus
+import MaxPlus
 
-    # get the current time in the animation
-    current_time = MaxPlus.Animation.GetTime()
+# get the current time in the animation
+current_time = MaxPlus.Animation.GetTime()
 
-    # print the current time to the console
-    print("Current Time:", current_time)
+# print the current time to the console
+print("Current Time:", current_time)
 ```  
   
 To get current time when animating in pymxs, the following code samples is used.
   
 ```python  
-    import pymxs
+import pymxs
 
-    # get current time 
-    current_time = pymxs.runtime.currentTime
+# get current time 
+current_time = pymxs.runtime.currentTime
 
-    # Log the values
-    print(current_time)
-    print(current_time.frame)
-    print(current_time.ticks)
+# Log the values
+print(current_time)
+print(current_time.frame)
+print(current_time.ticks)
 ```  
   
 ## Conclusion
