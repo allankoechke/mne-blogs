@@ -2,7 +2,14 @@
 
 ## Introduction
 
-Scripting in 3ds Max has been a way to automate or build custom plugins that either extends the functionality of what 3ds Max offers or introduces new functionality that 3ds Max does not have. Looking at this, its at the core of Design Automation to start running activities in the Autodesk Platform Services (APS) [Formerly Forge]. 3ds Max has been providing scripting capabilities through either the 3ds Max scripting language MAXScript or through Python (a wrapper around the MAXScript). Additionally, 3ds Max offers SDKs for C++ and C# plugin development useful for building and extending capabilities in 3ds Max.
+As of 3ds Max 2022, the MaxPlus library is deprecated. This blog intends to assist those using MaxPlus to transition to pymxs for 3ds Max. This article will focus on an example of porting the xref system from MaxPlus to pymxs.
+
+> As of  3ds Max 2021, MaxPlus was not supported in Python 3. From 3ds Max 2022, shipping of MaxPlus stopped as ***pymxs*** became the supported Python scripting in 3ds Max. Check here for complete documentation [https://help.autodesk.com/view/MAXDEV/2022/ENU/?guid=MAXDEV_Python_what_s_new_in_3ds_max_python_api_html](https://help.autodesk.com/view/MAXDEV/2022/ENU/?guid=MAXDEV_Python_what_s_new_in_3ds_max_python_api_html).
+> 
+
+## 3ds Max Scripting
+
+Scripting in 3ds Max has been a powerful tool for automating tasks and creating custom plugins that extend the functionality offered by 3ds Max or introduce new features not present in the software. This capability is crucial in Design Automation, where activities are executed within the Autodesk Platform Services (formerly known as Forge). To harness the power of scripting, 3ds Max provides two primary options: MAXScript, the native scripting language of 3ds Max, and Python, a wrapper around MAXScript. By leveraging these scripting languages, users can achieve high flexibility and control over 3ds Max. Additionally, 3ds Max offers SDKs for C++ and C# for those who prefer plugin development, allowing for the creation and extension of capabilities within the software.
 
 ## Scripting in MAXScript
 
